@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arbeitswelt im Wandel</title>
+<meta name="description" content="Interaktive Lernseite für Schülerinnen und Schüler zu aktuellen Forschungsergebnissen über den Wandel der Arbeitswelt (Tagungsband Hochschule Bremen, 2026).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --bg:#f6f4ef; --surface:#fcfcfb; --surface-2:#efece5; --line:#dedad0;
+  --ink:#191917; --ink-2:#52514e; --ink-3:#7a7873;
+  --accent:#1d5fae; --accent-soft:#e3ecf8; --accent-ink:#164a88;
+  --warm:#b8481c; --warm-soft:#fbe9df;
+  --good:#1f7a3a; --good-soft:#e2f2e6; --bad:#b3261e; --bad-soft:#fbe4e2;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;
+  --d-easy2:#d95926; --d-easy1:#f2a37f; --d-mid:#cfccc4; --d-hard1:#86b4ea; --d-hard2:#2a78d6;
+  --radius:14px; --shadow:0 1px 2px rgba(0,0,0,.05),0 4px 18px rgba(0,0,0,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg:#121211; --surface:#1a1a19; --surface-2:#242422; --line:#33332f;
+    --ink:#f0efec; --ink-2:#c3c2b7; --ink-3:#97958d;
+    --accent:#6ea6ee; --accent-soft:#1d2a3c; --accent-ink:#9cc3f5;
+    --warm:#f08a5d; --warm-soft:#3a2419;
+    --good:#5cc27a; --good-soft:#18301f; --bad:#f07a72; --bad-soft:#3a1c1a;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+    --d-easy2:#d95926; --d-easy1:#9a4a2a; --d-mid:#55534d; --d-hard1:#2f5f99; --d-hard2:#3987e5;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+    color-scheme: dark;
+    --bg:#121211; --surface:#1a1a19; --surface-2:#242422; --line:#33332f;
+    --ink:#f0efec; --ink-2:#c3c2b7; --ink-3:#97958d;
+    --accent:#6ea6ee; --accent-soft:#1d2a3c; --accent-ink:#9cc3f5;
+    --warm:#f08a5d; --warm-soft:#3a2419;
+    --good:#5cc27a; --good-soft:#18301f; --bad:#f07a72; --bad-soft:#3a1c1a;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+    --d-easy2:#d95926; --d-easy1:#9a4a2a; --d-mid:#55534d; --d-hard1:#2f5f99; --d-hard2:#3987e5;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:700;line-height:1.15;letter-spacing:-.01em;margin:0}
+h2{font-size:clamp(1.7rem,3.6vw,2.4rem)}
+h3{font-size:1.2rem}
+p{margin:.6em 0}
+a{color:var(--accent)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+
+/* Navigation */
+.topnav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topnav .wrap{display:flex;align-items:center;gap:14px;height:58px}
+.brand{font-family:Fraunces,serif;font-weight:700;white-space:nowrap}
+.navlinks{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{white-space:nowrap;text-decoration:none;color:var(--ink-2);font-size:.88rem;padding:6px 10px;border-radius:999px}
+.navlinks a.active{background:var(--accent-soft);color:var(--accent-ink);font-weight:600}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;background:var(--accent);width:0}
+
+/* Hero */
+.hero{padding:64px 0 40px}
+.kicker{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--warm);font-weight:700}
+.hero h1{font-size:clamp(2.3rem,6vw,4rem);margin:.25em 0 .3em;max-width:16ch}
+.hero .lead{font-size:1.15rem;color:var(--ink-2);max-width:62ch}
+.howto{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:28px}
+.howto div{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;font-size:.92rem;color:var(--ink-2)}
+.howto b{display:block;color:var(--ink);font-size:1rem}
+.source{font-size:.82rem;color:var(--ink-3);margin-top:20px;max-width:80ch}
+
+/* Sections */
+section.chapter{padding:56px 0;border-top:1px solid var(--line)}
+.chap-head{display:flex;gap:18px;align-items:flex-start;margin-bottom:22px}
+.chap-num{font-family:Fraunces,serif;font-size:2.6rem;line-height:1;color:var(--accent);font-weight:700;min-width:1.4em}
+.chap-head p{color:var(--ink-2);max-width:68ch;margin:.5em 0 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.mt{margin-top:18px}.mt2{margin-top:30px}
+.muted{color:var(--ink-2)}.small{font-size:.86rem}
+.key{background:var(--accent-soft);border-left:4px solid var(--accent);padding:14px 18px;border-radius:0 var(--radius) var(--radius) 0;font-size:1.05rem}
+.key b{color:var(--accent-ink)}
+.pill{display:inline-block;font-size:.74rem;font-weight:600;padding:2px 9px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
+.evidence{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px;font-size:.8rem;color:var(--ink-3)}
+.evidence .pill{background:var(--warm-soft);color:var(--warm);border-color:transparent}
+
+/* Stat tiles */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.stat .n{font-family:Fraunces,serif;font-size:2.2rem;font-weight:700;line-height:1.05}
+.stat .l{font-size:.86rem;color:var(--ink-2);margin-top:4px}
+
+/* Driver cards */
+.drivers{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.driver{all:unset;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:6px;transition:transform .15s,border-color .15s}
+.driver:hover{transform:translateY(-2px);border-color:var(--accent)}
+.driver[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.driver .ico{font-size:1.5rem}
+.driver b{font-size:1rem}
+.driver span{font-size:.82rem;color:var(--ink-2)}
+.driver-detail{margin-top:14px;min-height:120px}
+
+/* Waves */
+.waves{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;position:relative;margin-top:8px}
+.wave{all:unset;cursor:pointer;padding:14px 10px 12px;text-align:center;border-bottom:4px solid var(--line);transition:border-color .2s}
+.wave .t{font-family:Fraunces,serif;font-weight:700;font-size:1.05rem;display:block}
+.wave .d{font-size:.78rem;color:var(--ink-3)}
+.wave[aria-selected="true"]{border-color:var(--accent)}
+.wave[aria-selected="true"] .t{color:var(--accent-ink)}
+.wave-panel{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.wave-panel div{background:var(--surface-2);border-radius:10px;padding:12px 14px;font-size:.92rem}
+.wave-panel b{display:block;font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-bottom:2px}
+.speed{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:.84rem;color:var(--ink-2)}
+.speed i{display:block;height:8px;border-radius:4px;background:var(--accent)}
+
+/* Flip cards */
+.flips{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.flip{all:unset;cursor:pointer;perspective:800px;height:150px;display:block}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip[aria-pressed="true"] .in{transform:rotateY(180deg)}
+.flip .f,.flip .b{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;padding:12px;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--line)}
+.flip .f{background:var(--surface);text-align:center}
+.flip .f .L{font-family:Fraunces,serif;font-size:2.4rem;font-weight:700;color:var(--accent)}
+.flip .f small{color:var(--ink-2)}
+.flip .b{background:var(--accent-soft);transform:rotateY(180deg);font-size:.84rem}
+.flip .b b{color:var(--accent-ink)}
+
+/* Charts */
+.chart-title{font-weight:600;margin:0 0 2px}
+.chart-sub{font-size:.84rem;color:var(--ink-3);margin:0 0 14px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.82rem;color:var(--ink-2);margin:0 0 12px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.div-row{display:grid;grid-template-columns:140px 1fr;gap:10px;align-items:center;margin:7px 0}
+.div-row .lab{font-size:.86rem;color:var(--ink-2);text-align:right}
+.div-bar{display:flex;height:30px;gap:2px}
+.div-bar div{height:100%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:600;color:#1b1b1b;cursor:default;min-width:0;overflow:hidden}
+.div-bar div:first-child{border-radius:4px 0 0 4px}.div-bar div:last-child{border-radius:0 4px 4px 0}
+.div-bar .hard2,.div-bar .easy2{color:#fff}
+.div-axis{display:grid;grid-template-columns:140px 1fr;gap:10px;font-size:.74rem;color:var(--ink-3)}
+.div-axis div:last-child{display:flex;justify-content:space-between}
+.hbar{display:grid;grid-template-columns:minmax(120px,240px) 1fr;gap:10px;align-items:center;margin:10px 0}
+.hbar .lab{font-size:.86rem;color:var(--ink-2);text-align:right;line-height:1.3}
+.hbar .bars{display:flex;flex-direction:column;gap:3px}
+.hbar .b{display:flex;align-items:center;gap:6px}
+.hbar .b i{display:block;height:13px;border-radius:0 4px 4px 0;cursor:default;transition:width .8s cubic-bezier(.2,.7,.2,1)}
+.hbar .b em{white-space:nowrap;font-style:normal;font-size:.76rem;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.hbar.single .b i{height:20px}
+details.table{margin-top:12px;font-size:.84rem}
+details.table>div{overflow-x:auto}
+details.table summary{cursor:pointer;color:var(--accent);font-weight:500}
+details.table table{border-collapse:collapse;margin-top:8px;width:100%}
+details.table td,details.table th{border-bottom:1px solid var(--line);padding:4px 8px;text-align:left}
+details.table td.n{text-align:right;font-variant-numeric:tabular-nums}
+#tip{position:fixed;pointer-events:none;z-index:50;background:var(--ink);color:var(--bg);font-size:.8rem;padding:6px 10px;border-radius:8px;max-width:260px;opacity:0;transition:opacity .12s;line-height:1.35}
+
+/* Hypothesis checklist */
+.hyp{display:grid;gap:10px}
+.hyp-item{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.hyp-item .mark{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.95rem}
+.mark.yes{background:var(--good-soft);color:var(--good)}
+.mark.mixed{background:var(--warm-soft);color:var(--warm)}
+.hyp-item b{display:block}
+.hyp-item span{font-size:.88rem;color:var(--ink-2)}
+
+/* Controversy */
+.debate{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.debate>div{padding:18px}
+.debate>div:first-child{background:var(--warm-soft)}
+.debate>div:last-child{background:var(--accent-soft)}
+.debate h3{font-size:1.02rem;margin-bottom:6px}
+.debate ul{margin:0;padding-left:18px;font-size:.9rem}
+@media (max-width:640px){.debate{grid-template-columns:1fr}}
+
+/* Sliders */
+.sl{display:grid;grid-template-columns:150px 1fr 52px;gap:10px;align-items:center;margin:8px 0;font-size:.9rem}
+.sl output{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.stack{display:flex;height:34px;gap:2px;margin:6px 0}
+.stack div{display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:600;color:#fff;overflow:hidden;white-space:nowrap;transition:flex-basis .3s}
+.stack div:first-child{border-radius:4px 0 0 4px}.stack div:last-child{border-radius:0 4px 4px 0}
+.stack-l{font-size:.8rem;color:var(--ink-3)}
+.warnmsg{font-size:.86rem;font-weight:600}
+
+/* Trust slider */
+.trust-meter{position:relative;height:14px;border-radius:7px;background:linear-gradient(90deg,var(--d-hard2),var(--d-mid) 35%,var(--good) 50%,var(--d-mid) 65%,var(--d-easy2));margin:16px 0 6px}
+.trust-labels{display:flex;justify-content:space-between;font-size:.76rem;color:var(--ink-3)}
+.trust-out{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--surface-2);min-height:72px;font-size:.92rem}
+
+/* Sort task */
+.sort-item{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);margin:8px 0}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.seg button{border:0;background:transparent;padding:6px 12px;font-size:.82rem;cursor:pointer;color:var(--ink-2)}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.fb{grid-column:1/-1;font-size:.84rem;padding:8px 10px;border-radius:8px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--good-soft);color:var(--good)}
+.fb.no{background:var(--bad-soft);color:var(--bad)}
+.fb.ok b,.fb.no b{color:inherit}
+
+/* Quiz */
+.q{margin:14px 0;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.q p.qt{font-weight:600;margin:0 0 10px}
+.q .opts{display:grid;gap:6px}
+.q .opts button{all:unset;cursor:pointer;padding:9px 12px;border:1px solid var(--line);border-radius:9px;font-size:.92rem;background:var(--bg)}
+.q .opts button:hover{border-color:var(--accent)}
+.q .opts button.correct{border-color:var(--good);background:var(--good-soft);color:var(--good);font-weight:600}
+.q .opts button.wrong{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+.q .opts button[disabled]{cursor:default}
+.q .exp{display:none;margin-top:10px;font-size:.88rem;color:var(--ink-2)}
+.q.done .exp{display:block}
+.score{position:sticky;top:66px;z-index:5;display:inline-flex;gap:8px;align-items:center;background:var(--ink);color:var(--bg);padding:6px 14px;border-radius:999px;font-size:.88rem;font-weight:600}
+
+/* Likert */
+.lik{padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);margin:12px 0}
+.lik p.st{font-weight:600;margin:0 0 10px}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.scale button{all:unset;cursor:pointer;text-align:center;padding:8px 4px;border:1px solid var(--line);border-radius:8px;font-size:.76rem;line-height:1.2;background:var(--bg)}
+.scale button[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.research{display:none;margin-top:10px;font-size:.88rem;background:var(--accent-soft);padding:10px 12px;border-radius:8px}
+.research.show{display:block}
+textarea,input[type=text]{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+textarea{min-height:110px;resize:vertical}
+label.ql{display:block;font-weight:600;margin:18px 0 6px}
+label.ql small{display:block;font-weight:400;color:var(--ink-3)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:10px 18px;font-weight:600;cursor:pointer;background:var(--accent);color:#fff}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.btn:hover{filter:brightness(1.08)}
+.tasks-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.tasks-tabs button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;cursor:pointer;font-size:.88rem}
+.tasks-tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tabpanel[hidden]{display:none}
+#summary{white-space:pre-wrap;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--surface-2);border-radius:10px;padding:14px;max-height:340px;overflow:auto}
+footer{padding:40px 0 60px;border-top:1px solid var(--line);font-size:.84rem;color:var(--ink-3)}
+footer li{margin:4px 0}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.flip .in{transition:none}html{scroll-behavior:auto}}
+@media (max-width:640px){
+  .div-row,.div-axis{grid-template-columns:86px 1fr}
+  .hbar{grid-template-columns:1fr;gap:4px}
+  .hbar .lab{text-align:left}
+  .sl{grid-template-columns:110px 1fr 46px}
+  .waves{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .waves .wave .d{display:none}
+  .wave .t{font-size:.9rem}
+  .sort-item{grid-template-columns:1fr}
+  .scale button{font-size:.68rem}
+  .chap-num{font-size:2rem}
+}
+@media print{
+  body *{visibility:hidden}
+  #printarea,#printarea *{visibility:visible}
+  #printarea{position:absolute;left:0;top:0;width:100%}
+  #summary{max-height:none;background:#fff;color:#000}
+}
+</style>
+</head>
+<body>
+<div id="tip" role="tooltip"></div>
+
+<nav class="topnav" aria-label="Kapitel">
+  <div class="wrap">
+    <span class="brand">Arbeit im Wandel</span>
+    <div class="navlinks">
+      <a href="#treiber">1 Treiber</a>
+      <a href="#wellen">2 Wellen</a>
+      <a href="#ki">3 KI &amp; Aufgaben</a>
+      <a href="#vertrauen">4 Vertrauen</a>
+      <a href="#zeit">5 Arbeitszeit</a>
+      <a href="#paradox">6 Berufseinstieg</a>
+      <a href="#skills">7 Future Skills</a>
+      <a href="#aufgaben">✎ Aufgaben</a>
+    </div>
+  </div>
+  <div class="progress" id="progress"></div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Forschung verstehen · Zukunft einschätzen</div>
+    <h1>Wie arbeiten wir morgen?</h1>
+    <p class="lead">Künstliche Intelligenz, die 4-Tage-Woche, Fachkräftemangel und trotzdem schwierige Berufsstarts: Die Arbeitswelt verändert sich gerade schneller als je zuvor. Auf dieser Seite erfährst du, was Forscherinnen und Forscher der Hochschule Bremen dazu herausgefunden haben – und bildest dir deine eigene Meinung.</p>
+    <div class="howto">
+      <div><b>① Lesen &amp; entdecken</b>Sieben kurze Kapitel. Viele Elemente kannst du anklicken, umdrehen oder verschieben.</div>
+      <div><b>② Diagramme lesen</b>Fahre mit der Maus über Balken (oder tippe sie an), um genaue Werte zu sehen.</div>
+      <div><b>③ Aufgaben lösen</b>Quiz, Zuordnung, Einschätzung und Zukunftsbrief findest du am Ende.</div>
+      <div><b>④ Abgeben</b>Deine Antworten werden zu einem Abgabe-Dokument zusammengefasst – zum Herunterladen oder Drucken.</div>
+    </div>
+    <p class="source">Grundlage: Kuron, U., Schäfer, G. &amp; Varmaz, A. (Hrsg.) (2026): <i>Herausforderungen in der komplexen Lebens- und Arbeitswelt postmoderner Gesellschaften.</i> Schriftenreihe der Fakultät Wirtschaftswissenschaften der Hochschule Bremen, Band 83. Alle Zahlen stammen aus den Beiträgen dieses Bandes bzw. den dort zitierten Studien.</p>
+  </div>
+</header>
+
+<main>
+<!-- 1 TREIBER -->
+<section class="chapter" id="treiber">
+  <div class="wrap">
+    <div class="chap-head reveal">
+      <div class="chap-num">1</div>
+      <div><h2>Was treibt den Wandel an?</h2>
+      <p>Die Herausgeber des Bandes nennen mehrere Kräfte, die gleichzeitig wirken. Arbeit wird dadurch <b>entgrenzt</b> (Arbeit und Freizeit verschwimmen) und <b>flexibilisiert</b> (wann, wo und wie viel wir arbeiten, wird beweglicher). Klicke auf einen Treiber.</p></div>
+    </div>
+    <div class="drivers reveal" id="drivers"></div>
+    <div class="card driver-detail" id="driverDetail" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 2 WELLEN -->
+<section class="chapter" id="wellen">
+  <div class="wrap">
+    <div class="chap-head reveal">
+      <div class="chap-num">2</div>
+      <div><h2>Vier Wellen der Arbeit</h2>
+      <p>Pundt &amp; Brüning ordnen den heutigen Wandel historisch ein – mit der Wellentheorie von Alvin und Heidi Toffler. Jede Welle veränderte, <i>wie</i>, <i>wo</i> und <i>wann</i> Menschen arbeiten. Die Autorinnen ergänzen eine mögliche <b>vierte Welle: die KI-Kultur</b>.</p></div>
+    </div>
+    <div class="card reveal">
+      <div class="waves" role="tablist" id="waves"></div>
+      <div class="wave-panel" id="wavePanel" aria-live="polite"></div>
+      <div class="speed" id="waveSpeed"></div>
+    </div>
+
+    <div class="mt2 reveal">
+      <h3>Arbeiten in der VUCA- und BANI-Welt</h3>
+      <p class="muted">Zwei Begriffe beschreiben, warum Planung heute so schwer ist. VUCA beschreibt die <b>äußeren Bedingungen</b>, BANI (Cascio 2020) die <b>psychologische Wirkung</b> auf Menschen. Klicke die Karten zum Umdrehen.</p>
+      <p class="small" style="margin-bottom:6px"><b>VUCA</b></p>
+      <div class="flips" id="vuca"></div>
+      <p class="small" style="margin:14px 0 6px"><b>BANI</b></p>
+      <div class="flips" id="bani"></div>
+      <p class="key mt">Folgerung der Autorinnen: Langfristige Planung reicht nicht mehr. <b>Resilienz</b> – Belastungen bewältigen, aus Krisen lernen, handlungsfähig bleiben – wird zur Zukunftskompetenz für Menschen und Organisationen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 KI -->
+<section class="chapter" id="ki">
+  <div class="wrap">
+    <div class="chap-head reveal">
+      <div class="chap-num">3</div>
+      <div><h2>KI ersetzt selten Berufe – aber viele Aufgaben</h2>
+      <p>Frühere Automatisierung ersetzte vor allem körperliche Arbeit. Generative KI (seit ChatGPT, November 2022) greift dagegen in <b>Wissensarbeit</b> ein: Texte schreiben, Informationen analysieren, programmieren, übersetzen.</p></div>
+    </div>
+    <p class="key reveal">Kernbefund: Berufe bestehen aus vielen Aufgaben. KI übernimmt einzelne davon – vor allem standardisierbare. Es kommt zu einer <b>Neuverteilung von Aufgaben zwischen Mensch und Technik</b>, nicht zum Ende der Arbeit. (Pundt &amp; Brüning, mit Bezug auf Autor, Levy &amp; Murnane 2003; Brynjolfsson et&nbsp;al. 2025)</p>
+
+    <div class="grid2 mt2">
+      <div class="card reveal">
+        <h3>Eher Technik</h3>
+        <p class="small muted">datenintensiv, standardisierbar, wiederholend</p>
+        <ul class="small">
+          <li>Informationen recherchieren und zusammenfassen</li>
+          <li>Dokumentation, Standardtexte, Entwürfe</li>
+          <li>Bewerbungsunterlagen vorsortieren, Stellenanzeigen schreiben</li>
+          <li>Muster in großen Datenmengen erkennen</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3>Eher Mensch</h3>
+        <p class="small muted">schwer automatisierbar</p>
+        <ul class="small">
+          <li>Kreativität, Empathie, moralisches Urteilen</li>
+          <li>Verantwortung übernehmen und Entscheidungen begründen</li>
+          <li>Komplexe Probleme in unklaren Situationen lösen</li>
+          <li>Erfahrungswissen: Ältere Beschäftigte gewinnen in manchen KI-Feldern sogar an Bedeutung</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card mt2 reveal">
+      <p class="chart-title">Können Nicht-Akademiker mit KI-Unterstützung Akademiker ersetzen?</p>
+      <p class="chart-sub">Einschätzung von Unternehmen, die KI nutzen, nach Branche · Anteil in % · ifo Konjunkturumfragen, Mai 2026 (zitiert bei Harms)</p>
+      <div class="legend" id="divLegend"></div>
+      <div id="divChart"></div>
+      <div class="div-axis"><div></div><div><span>0 %</span><span>50 %</span><span>100 %</span></div></div>
+      <details class="table"><summary>Daten als Tabelle anzeigen</summary><div id="divTable"></div></details>
+      <p class="small muted mt"><b>So liest du das Diagramm:</b> Orange = „Ersatz leicht möglich“, Blau = „schwer/unmöglich“. In jeder Branche hält mindestens die Hälfte der Unternehmen einen Ersatz für schwer oder unmöglich – im Bau sogar gut zwei Drittel. Trotzdem: Gerade typische <b>Einstiegsaufgaben</b> lassen sich teilweise mit KI erledigen, sodass weniger Stellen gebraucht werden.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 VERTRAUEN -->
+<section class="chapter" id="vertrauen">
+  <div class="wrap">
+    <div class="chap-head reveal">
+      <div class="chap-num">4</div>
+      <div><h2>Wenn die KI zur Kollegin wird</h2>
+      <p>Technik allein reicht nicht – sie muss auch <b>genutzt</b> werden. Knoche &amp; Lemmer haben 20 Beschäftigte aus Landes- und Kommunalverwaltungen befragt, wie sie einen KI-Assistenten („VeraPlus“) im Arbeitsalltag sehen würden.</p></div>
+    </div>
+    <div class="stats reveal">
+      <div class="stat"><div class="n">„Wechselbad“</div><div class="l">Erste Reaktion: Begeisterung und Sorge gleichzeitig</div></div>
+      <div class="stat"><div class="n">143</div><div class="l">Codierungen zum Thema <b>Kontrolle</b> – das meistgenannte Einzelthema</div></div>
+      <div class="stat"><div class="n">141</div><div class="l">Codierungen zu „<b>Menschen mitnehmen</b>“ statt Systeme „überzustülpen“</div></div>
+      <div class="stat"><div class="n">?</div><div class="l">Wunsch nach einer „<b>Warum-Taste</b>“: Woher kommt dieses Ergebnis?</div></div>
+    </div>
+    <div class="evidence reveal"><span class="pill">Wie belastbar?</span> Qualitative Studie, 20 Interviews, fiktives System – zeigt Muster und Begründungen, aber keine repräsentativen Anteile.</div>
+
+    <div class="grid2 mt2">
+      <div class="card reveal">
+        <h3>Vier Bedingungen für Vertrauen</h3>
+        <ol class="small">
+          <li><b>Transparenz</b> über Quellen und Herkunft der Informationen</li>
+          <li><b>Datenschutz</b> und Datensicherheit (z. B. keine Cloud außerhalb der EU)</li>
+          <li><b>Aktualität und Richtigkeit</b> – keine „Halluzinationen“</li>
+          <li><b>Gute Erfahrungen anderer</b> Kolleginnen und Kollegen</li>
+        </ol>
+        <p class="small">„Dass ich es immer selbst entscheiden kann. Es dürfte niemals meine Arbeit alleine machen.“ <span class="muted">– Interview 02</span></p>
+      </div>
+      <div class="card reveal">
+        <h3>Ausprobieren: Wie viel Vertrauen ist richtig?</h3>
+        <p class="small muted">Nach dem „Trust in Automation“-Modell (Lee &amp; See 2004) ist weder blindes Vertrauen noch völlige Ablehnung gut. Verschiebe den Regler.</p>
+        <input type="range" id="trust" min="0" max="100" value="50" aria-label="Vertrauen in ein KI-System">
+        <div class="trust-meter" aria-hidden="true"></div>
+        <div class="trust-labels"><span>Misstrauen</span><span>kalibriert</span><span>blindes Vertrauen</span></div>
+        <div class="trust-out" id="trustOut" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="card mt2 reveal">
+      <h3>Exkurs: Folgen Menschen einem Robo-Advisor?</h3>
+      <p class="small">Varmaz, Hegner &amp; Riebe testeten in Online-Experimenten, ob Menschen eine Geldanlage-Empfehlung schlechter annehmen, wenn sie von einem Algorithmus statt von einem menschlichen Berater kommt.</p>
+      <div class="grid3">
+        <div><b>Keine Abneigung</b><p class="small muted">Die frühere „Algorithmus-Aversion“ war nicht mehr nachweisbar – vermutlich, weil wir uns an KI im Alltag gewöhnt haben.</p></div>
+        <div><b>Voreinstellung wirkt am stärksten</b><p class="small muted">Eine vorausgefüllte, änderbare Empfehlung verschob die Entscheidung um rund 12 Prozentpunkte – stärker als die Frage, wer empfahl.</p></div>
+        <div><b>Folgerung</b><p class="small muted">Schutz entsteht nicht durch Misstrauen gegenüber Maschinen, sondern durch faire Gestaltung und Aufsicht über solche Systeme.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 ARBEITSZEIT -->
+<section class="chapter" id="zeit">
+  <div class="wrap">
+    <div class="chap-head reveal">
+      <div class="chap-num">5</div>
+      <div><h2>Weniger arbeiten, mehr leben?</h2>
+      <p>Die Frage der Arbeitszeit spaltet das Land. Beate Zimpelmann untersucht Arbeitszeitwünsche, die Verteilung zwischen Frauen und Männern und Erfahrungen mit der 4-Tage-Woche.</p></div>
+    </div>
+
+    <div class="stats reveal">
+      <div class="stat"><div class="n">40,6 h</div><div class="l">Wochenarbeitszeit in <b>Vollzeit</b> in Deutschland – EU-Durchschnitt</div></div>
+      <div class="stat"><div class="n">34,8 h</div><div class="l">Durchschnitt <b>aller</b> Erwerbstätigen (EU: 37,1 h) – wegen vieler Teilzeitstellen</div></div>
+      <div class="stat"><div class="n">49 % / 12 %</div><div class="l">Teilzeitquote bei Frauen / bei Männern</div></div>
+      <div class="stat"><div class="n">81 %</div><div class="l">der Befragten sind für eine 4-Tage-Woche (WSI-Befragung)</div></div>
+    </div>
+
+    <div class="grid2 mt2">
+      <div class="card reveal">
+        <p class="chart-title">Gender Time Gap</p>
+        <p class="chart-sub">Wie stark unterscheiden sich die Arbeitszeiten von Frauen und Männern?</p>
+        <div id="gapChart"></div>
+        <p class="small muted">Frauen leisten im Schnitt das 1,6-Fache an Hausarbeit und das 2,4-Fache an Fürsorgearbeit. Bei Familien mit Kindern arbeiten 94&nbsp;% der Männer, aber nur 34&nbsp;% der Frauen in Vollzeit.</p>
+      </div>
+      <div class="card reveal">
+        <p class="chart-title">Wunsch und Wirklichkeit</p>
+        <p class="chart-sub">Gewünschte Wochenarbeitszeit (Allmendinger et al. 2017)</p>
+        <div id="wishChart"></div>
+        <p class="small muted">Viele Frauen möchten mehr, viele Männer weniger erwerbstätig sein. Eine „kurze Vollzeit“ um 30 Stunden könnte laut DIW rund 2 Mio. Vollzeitstellen an zusätzlichem Arbeitspotenzial erschließen.</p>
+      </div>
+    </div>
+
+    <h3 class="mt2 reveal">Praxistest: Die 4-Tage-Woche in sechs Betrieben</h3>
+    <p class="muted reveal">Gastronomie, Garten- und Landschaftsbau, Fahrzeugbau, Friseurhandwerk, Veranstaltungsmanagement, Bau. Im Schnitt sank die Arbeitszeit um 7&nbsp;% auf 33 Wochenstunden. Die Modelle waren sehr unterschiedlich – von echter Verkürzung bis zur bloßen Umverteilung auf weniger Tage.</p>
+    <div class="hyp mt reveal" id="hyp"></div>
+    <div class="evidence reveal"><span class="pill">Wie belastbar?</span> Fallstudie mit 6 Betrieben und 14 Interviews – nur „exemplarisch“, wie die Autorin selbst betont. Deshalb der Vergleich mit einer größeren Studie:</div>
+
+    <div class="grid2 mt">
+      <div class="card reveal">
+        <p class="chart-title">Deutsche Pilotstudie, 45 Unternehmen</p>
+        <p class="chart-sub">Backmann et al. 2026, zwei Jahre nach Start · Anteil der Organisationen in %</p>
+        <div id="pilotChart"></div>
+        <p class="small muted">Aber: Die Autoren sehen auch <b>hohe organisatorische Kosten</b> (Koordination, Management). Eine britische Studie (61 Firmen, 40 → 32 Stunden) fand 65&nbsp;% weniger Krankheitstage.</p>
+      </div>
+      <div class="card reveal">
+        <p class="chart-title">Wofür nutzten die Beschäftigten die freie Zeit?</p>
+        <p class="chart-sub">Nennungen nach Geschlecht, in % · Fallstudie (Berger et al. 2025), Werte aus Abbildung abgelesen</p>
+        <div class="legend"><span><i style="background:var(--s1)"></i>Männer</span><span><i style="background:var(--s2)"></i>Frauen</span></div>
+        <div id="useChart"></div>
+        <p class="small muted">Care-Arbeit (Sorge, Haushalt) war die meistgenannte Nutzung – und Männer nannten sie häufiger. Nur Männer nutzten die Zeit auch für zusätzliche Erwerbsarbeit.</p>
+      </div>
+    </div>
+
+    <div class="mt2 reveal">
+      <h3>Die Kontroverse</h3>
+      <p class="muted small">Die Forschung liefert Zahlen – wie man sie bewertet, ist politisch umstritten. Die Autorin bezieht klar Position für kürzere Arbeitszeiten. Beide Seiten im Überblick:</p>
+      <div class="debate">
+        <div>
+          <h3>Für längere Arbeitszeiten</h3>
+          <ul>
+            <li>Wirtschaftsverbände und Teile der Politik fordern z. B. 42 Wochenstunden</li>
+            <li>Tägliche Höchstarbeitszeit (10 h) und Mindestruhezeit (11 h) sollen fallen</li>
+            <li>Ziel: Wettbewerbsfähigkeit sichern, Fachkräftemangel ausgleichen</li>
+            <li>Kritik an „Lifestyle-Teilzeit“</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Für kürzere Arbeitszeiten</h3>
+          <ul>
+            <li>Gewerkschaften (IG Metall: 32-Stunden-Woche)</li>
+            <li>Lange, schlecht planbare Arbeitszeiten machen krank (psychische Fehltage 2021: +41 % in 10 Jahren)</li>
+            <li>Attraktivere Arbeitgeber, Frauen aus der „stillen Reserve“ gewinnen</li>
+            <li>Gerechtere Verteilung von Care-Arbeit; Jobsicherung im Strukturwandel</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt2 reveal">
+      <h3>Ausprobieren: Dein Tag in vier Bereichen</h3>
+      <p class="small muted">Frigga Haug schlägt in ihrer „Vier-in-einem-Perspektive“ vor, die 16 wachen Stunden eines Tages gleich auf vier Arten von Arbeit zu verteilen. Wie würdest <b>du</b> deinen Tag als Erwachsene/r gerne aufteilen?</p>
+      <div id="haugSliders"></div>
+      <p class="warnmsg" id="haugMsg" aria-live="polite"></p>
+      <p class="stack-l">Haugs Vision</p>
+      <div class="stack" id="haugVision"></div>
+      <p class="stack-l">Dein Wunsch</p>
+      <div class="stack" id="haugMine"></div>
+    </div>
+
+    <div class="card mt reveal">
+      <h3>Schutz im Wandel: das Mutterschutzgesetz</h3>
+      <p class="small">Bettina Graue zeigt: Auch Arbeitsschutz verändert sich mit der Gesellschaft. Das Mutterschutzgesetz gibt es seit 1878 (damals 3 Wochen Beschäftigungsverbot nach der Geburt, ohne Lohn). Heute gelten u. a. 6 Wochen Schutz vor und 8 Wochen nach der Geburt bei vollem Lohnausgleich, ein Kündigungsverbot – und seit 2018 gilt das Gesetz auch für Schülerinnen und Studentinnen. Seit Juni 2025 gibt es erstmals einen gestaffelten Mutterschutz nach einer Fehlgeburt ab der 13. Woche. Ziel ist beides: <b>Gesundheitsschutz</b> und <b>keine Benachteiligung</b> im Beruf. Neue Regeln entstehen oft erst, wenn Gerichte (EuGH, Bundesverfassungsgericht) Lücken aufdecken.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 PARADOX -->
+<section class="chapter" id="paradox">
+  <div class="wrap">
+    <div class="chap-head reveal">
+      <div class="chap-num">6</div>
+      <div><h2>Das Fachkräfte-Paradox</h2>
+      <p>Überall fehlen Fachkräfte – und trotzdem finden junge Hochschulabsolventinnen und -absolventen schwerer einen Job. Martina Harms erklärt, wie das zusammenpasst.</p></div>
+    </div>
+    <div class="stats reveal">
+      <div class="stat"><div class="n">&gt; 0,5 Mio.</div><div class="l">fehlende Fachkräfte auf dem Höhepunkt 2023 (IAB)</div></div>
+      <div class="stat"><div class="n">2,9 → 3,3 %</div><div class="l">Arbeitslosenquote von Akademiker:innen 2024 → 2025</div></div>
+      <div class="stat"><div class="n">− 4,5 Mio.</div><div class="l">Erwerbspersonen bis 2060 laut IAB-Prognose (große Schwankungsbreite)</div></div>
+      <div class="stat"><div class="n">&gt; 50 %</div><div class="l">der Unternehmen nutzen bereits KI (ifo)</div></div>
+    </div>
+
+    <div class="grid2 mt2">
+      <div class="card reveal">
+        <h3>Was den Mangel verstärkt …</h3>
+        <ul class="small">
+          <li><b>Demografie:</b> Die geburtenstarken Jahrgänge gehen in Rente, weniger Junge rücken nach.</li>
+          <li><b>Passung:</b> Unattraktive Bedingungen (Gehalt, Arbeitszeiten) und unterschiedliche Erwartungen.</li>
+        </ul>
+        <h3 class="mt">… und was ihn abschwächt</h3>
+        <ul class="small">
+          <li><b>Krisen &amp; Unsicherheit:</b> Konjunkturschwäche, Kriege, Zölle → Unternehmen stellen vorsichtiger ein.</li>
+          <li><b>KI:</b> Manche Tätigkeiten brauchen weniger oder anders qualifizierte Arbeitskräfte.</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3>Warum es gerade Berufseinsteiger trifft</h3>
+        <ul class="small">
+          <li>Neueinstellungen kosten Geld, Einarbeitung bindet Zeit – in Krisen werden Erfahrene bevorzugt.</li>
+          <li>Klassische Einstiegsaufgaben (Recherche, Standardanalysen, Textentwürfe) übernimmt teils die KI.</li>
+          <li>Dadurch wird die Lernphase kürzer und die erwartete Produktivität früher höher.</li>
+          <li>Die Gen Z wuchs mit dem Versprechen auf, „umworben“ zu sein – nun erleben viele einen <b>Erwartungsbruch</b>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card mt2 reveal">
+      <p class="chart-title">Ursachen des Fachkräftemangels aus Sicht von Betriebs- und Personalräten</p>
+      <p class="chart-sub">Angaben in % · Hans-Böckler-Stiftung (Ahlers 2025), zitiert bei Harms</p>
+      <div class="legend"><span><i style="background:var(--s1)"></i>Privatwirtschaft</span><span><i style="background:var(--s2)"></i>Öffentlicher Dienst</span></div>
+      <div id="causeChart"></div>
+      <details class="table"><summary>Daten als Tabelle anzeigen</summary><div id="causeTable"></div></details>
+    </div>
+
+    <div class="grid2 mt2">
+      <div class="card reveal">
+        <h3>Was die Gen Z von Arbeit erwartet</h3>
+        <p class="small muted">nach Kochhan &amp; Cichecki 2024</p>
+        <ul class="small">
+          <li>Ein Beruf, der Spaß macht und zu den eigenen Fähigkeiten passt</li>
+          <li>Gehalt und Aufstieg wichtig – aber nicht an erster Stelle</li>
+          <li>Feedback, offene Kommunikation, flache Hierarchien</li>
+          <li>Work-Life-Balance, flexible Zeiten und Orte (Homeoffice)</li>
+          <li>Persönliche Ziele vor Unternehmenszielen – höhere Wechselbereitschaft</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <p class="chart-title">Welche Folgen erwarten Unternehmen?</p>
+        <p class="chart-sub">Erwartete Folgen des Fachkräftemangels, in % (DIHK 2025)</p>
+        <div id="dihkChart"></div>
+      </div>
+    </div>
+    <p class="key mt2 reveal">Fazit von Harms: Es fehlt nicht einfach „Personal“ – es gibt vor allem <b>Passungsprobleme</b>. Ein Studium bleibt ein Vorteil, ist aber kein Garant mehr für einen schnellen Einstieg. Gefragt sind auch Praxiserfahrung und digitale Kompetenzen. Unternehmen sollten Nachwuchs nicht nur rekrutieren, sondern <b>entwickeln</b> (Trainee-Programme, Mentoring, Weiterbildung).</p>
+  </div>
+</section>
+
+<!-- 7 SKILLS -->
+<section class="chapter" id="skills">
+  <div class="wrap">
+    <div class="chap-head reveal">
+      <div class="chap-num">7</div>
+      <div><h2>Future Skills: Was du lernen solltest</h2>
+      <p>Wissen veraltet heute schneller als früher. Wichtig werden Fähigkeiten, die in vielen Berufen gebraucht werden. Der Future of Jobs Report des Weltwirtschaftsforums (2025) nennt u. a.:</p></div>
+    </div>
+    <div class="grid3 reveal" id="skillCards"></div>
+    <p class="key mt2 reveal"><b>Digital Literacy</b> ist laut Pundt &amp; Brüning so grundlegend wie Lesen, Schreiben und Rechnen: digitale Technik sicher, <i>kritisch</i>, reflektiert und kreativ nutzen. <b>AI Literacy</b> heißt zusätzlich: verstehen, wie KI funktioniert, Ergebnisse prüfen, Verzerrungen und „Halluzinationen“ erkennen. „Erfolgreich sind nicht diejenigen, die mit Technologien konkurrieren, sondern diejenigen, die lernen, produktiv mit ihnen zusammenzuarbeiten.“</p>
+    <div class="card mt2 reveal">
+      <h3>Selbstcheck: Wo stehst du?</h3>
+      <p class="small muted">Schätze dich ehrlich ein (1 = kaum, 5 = sehr gut). Deine Werte fließen in deine Abgabe ein.</p>
+      <div id="selfCheck"></div>
+      <p class="small" id="selfMsg" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<!-- AUFGABEN -->
+<section class="chapter" id="aufgaben">
+  <div class="wrap">
+    <div class="chap-head">
+      <div class="chap-num">✎</div>
+      <div><h2>Aufgaben</h2>
+      <p>Löse die vier Aufgabenteile. Deine Eingaben werden in diesem Browser zwischengespeichert. Am Ende erstellst du daraus dein Abgabe-Dokument.</p></div>
+    </div>
+    <div class="tasks-tabs" role="tablist" id="taskTabs">
+      <button role="tab" aria-selected="true" data-tab="tA">A · Quiz</button>
+      <button role="tab" aria-selected="false" data-tab="tB">B · Mensch oder KI?</button>
+      <button role="tab" aria-selected="false" data-tab="tC">C · Deine Einschätzung</button>
+      <button role="tab" aria-selected="false" data-tab="tD">D · Zukunftsbrief</button>
+      <button role="tab" aria-selected="false" data-tab="tE">✓ Abgabe</button>
+    </div>
+
+    <div class="tabpanel" id="tA" role="tabpanel">
+      <h3>A · Verständnis-Quiz</h3>
+      <p class="small muted">Wähle jeweils eine Antwort. Du bekommst sofort eine Rückmeldung mit Erklärung.</p>
+      <div class="score" id="score">0 / 0 richtig</div>
+      <div id="quiz"></div>
+    </div>
+
+    <div class="tabpanel" id="tB" role="tabpanel" hidden>
+      <h3>B · Mensch, KI oder Team?</h3>
+      <p class="small muted">Ordne zu, wer diese Aufgabe nach den Forschungsergebnissen künftig am ehesten übernimmt. Es gibt nicht immer nur eine richtige Sicht – die Rückmeldung zeigt, was die Studien nahelegen.</p>
+      <div id="sort"></div>
+    </div>
+
+    <div class="tabpanel" id="tC" role="tabpanel" hidden>
+      <h3>C · Wie siehst du die Zukunft?</h3>
+      <p class="small muted">Gib zu jeder These deine Einschätzung ab. Danach siehst du, was die Forschung dazu sagt. Hier gibt es kein Richtig oder Falsch.</p>
+      <div id="likert"></div>
+    </div>
+
+    <div class="tabpanel" id="tD" role="tabpanel" hidden>
+      <h3>D · Dein Zukunftsbrief</h3>
+      <p class="small muted">Beantworte die Fragen in ganzen Sätzen. Beziehe dich mindestens einmal auf ein Forschungsergebnis dieser Seite.</p>
+      <div id="open"></div>
+    </div>
+
+    <div class="tabpanel" id="tE" role="tabpanel" hidden>
+      <h3>Abgabe</h3>
+      <div class="grid2">
+        <div><label class="ql" for="nm">Name</label><input type="text" id="nm" autocomplete="name"></div>
+        <div><label class="ql" for="kl">Klasse / Kurs</label><input type="text" id="kl"></div>
+      </div>
+      <p class="small muted mt" id="completeness"></p>
+      <div class="mt" style="display:flex;flex-wrap:wrap;gap:8px">
+        <button class="btn" id="dl">⬇ Als Textdatei herunterladen</button>
+        <button class="btn ghost" id="pr">🖨 Drucken / als PDF speichern</button>
+        <button class="btn ghost" id="cp">⧉ Text kopieren</button>
+        <button class="btn ghost" id="rs" style="color:var(--bad);border-color:var(--bad)">Alles zurücksetzen</button>
+      </div>
+      <p class="small" id="cpMsg" aria-live="polite"></p>
+      <div id="printarea" class="mt"><div id="summary"></div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Verwendete Beiträge</b> aus Kuron, Schäfer &amp; Varmaz (Hrsg.) 2026, Hochschule Bremen, Band 83:</p>
+    <ul>
+      <li>Zimpelmann, B.: Weniger Arbeiten, mehr Leben! Arbeitszeit neu denken (S. 25–40)</li>
+      <li>Graue, B.: Mutterschutz im Wandel – Herausforderungen eines modernen Arbeitsschutzes (S. 41–49)</li>
+      <li>Pundt, L. &amp; Brüning, H.: Zukunft der Arbeit gestalten – zwischen digitaler Transformation und menschlichem Miteinander (S. 58–69)</li>
+      <li>Harms, M.: Fachkräftemangel paradox: Berufseinsteiger:innen im Spannungsfeld von KI, Krise und Knappheit (S. 70–78)</li>
+      <li>Knoche, S. &amp; Lemmer, K.: Wenn die KI zur Kollegin wird (S. 93–103)</li>
+      <li>Varmaz, A., Hegner, S. &amp; Riebe, K.: Vertrauen in Algorithmen und Risikobereitschaft an Finanzmärkten (S. 115–127)</li>
+    </ul>
+    <p>Zahlen aus Diagrammen der Beiträge wurden teilweise abgelesen und können um wenige Prozentpunkte abweichen. Diese Seite ist eine didaktische Aufbereitung und ersetzt nicht die Lektüre der Originalbeiträge.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=n=>String(n).replace(".",",");
+
+/* ---------- State (in memory + optional localStorage) ---------- */
+const KEY="arbeitswelt-lernseite-v1";
+let S={quiz:{},sort:{},lik:{},open:{},self:{},haug:null,name:"",klasse:""};
+try{const raw=localStorage.getItem(KEY); if(raw){S=Object.assign(S,JSON.parse(raw));}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){} updateSummary();}
+
+/* ---------- Tooltip ---------- */
+const tip=$("#tip");
+function bindTip(el,text){
+  el.setAttribute("tabindex","0"); el.setAttribute("aria-label",text.replace(/<[^>]+>/g,""));
+  const show=e=>{tip.innerHTML=text;tip.style.opacity=1;move(e)};
+  const move=e=>{let x,y; if(e && e.clientX!==undefined && e.type!=="focus"){x=e.clientX;y=e.clientY}else{const r=el.getBoundingClientRect();x=r.left+r.width/2;y=r.top}
+    const w=tip.offsetWidth,h=tip.offsetHeight; let L=x+12,T=y-h-12; if(L+w>innerWidth-8)L=x-w-12; if(L<8)L=8; if(T<8)T=y+16; tip.style.left=L+"px";tip.style.top=T+"px"};
+  const hide=()=>tip.style.opacity=0;
+  el.addEventListener("mouseenter",show);el.addEventListener("mousemove",move);el.addEventListener("mouseleave",hide);
+  el.addEventListener("focus",show);el.addEventListener("blur",hide);
+  el.addEventListener("touchstart",e=>{show(e.touches[0]);setTimeout(hide,2200)},{passive:true});
+}
+
+/* ---------- 1 Treiber ---------- */
+const drivers=[
+ {i:"🤖",t:"Digitalisierung & KI",s:"Technik übernimmt Denkaufgaben",d:"Seit dem PC (1980er), dem Internet (1990er), Smartphones (2000er) und der Cloud ist Arbeit orts- und zeitunabhängiger geworden. Mit generativer KI (seit 2022) können erstmals auch <b>kognitive Tätigkeiten</b> wie Schreiben, Analysieren oder Programmieren automatisiert werden. Mehr als die Hälfte der Unternehmen nutzt KI bereits.",k:"→ Kapitel 3 & 4"},
+ {i:"👥",t:"Demografischer Wandel",s:"Weniger Junge, mehr Ältere",d:"Die geburtenstarken Jahrgänge gehen in Rente, deutlich weniger junge Menschen rücken nach. Das IAB erwartet bis 2060 rund <b>4,5 Millionen weniger Erwerbspersonen</b> – selbst Zuwanderung und mehr erwerbstätige Frauen gleichen das nicht vollständig aus.",k:"→ Kapitel 6"},
+ {i:"🌍",t:"Krisen & Geopolitik",s:"Unsicherheit als Dauerzustand",d:"Pandemie, Krieg, Zölle, Konjunkturschwäche und Klimawandel wirken gleichzeitig. Forscher beschreiben das als <b>VUCA- bzw. BANI-Welt</b>. Unternehmen reagieren vorsichtiger – auch bei Neueinstellungen. Die Krisen haben zugleich Homeoffice und hybrides Arbeiten beschleunigt.",k:"→ Kapitel 2 & 6"},
+ {i:"⚖️",t:"Wertewandel",s:"„Arbeiten, um zu leben“",d:"Vor allem jüngere Menschen – darunter viele junge Väter – wollen der Arbeit nicht mehr Familie, Freundschaften und Freizeit opfern. Der Wunsch nach Work-Life-Balance, Sinn und Flexibilität wächst. Unternehmen reagieren z. B. mit der <b>4-Tage-Woche</b>.",k:"→ Kapitel 5"},
+ {i:"🌈",t:"Vielfalt & Gleichstellung",s:"Wer übernimmt welche Arbeit?",d:"Frauen arbeiten deutlich häufiger in Teilzeit und leisten mehr unbezahlte Sorgearbeit. Die Frage, wie Erwerbs- und Care-Arbeit gerecht verteilt werden, wird zentral – ebenso Schutzrechte wie der Mutterschutz und der faire Einsatz von KI, die bestehende Verzerrungen verstärken kann.",k:"→ Kapitel 5"},
+ {i:"🌱",t:"Klima & Strukturwandel",s:"Neue Industrien, wegfallende Jobs",d:"Der Umbau der Industrie (z. B. vom Verbrenner zum E-Auto, Stahl mit Wasserstoff) gefährdet Arbeitsplätze – allein durch den Antriebswechsel werden mindestens 140.000 Jobs prognostiziert, die wegfallen. Die Debatte um eine sozial gerechte „Just Transition“ verbindet Klima- und Arbeitszeitpolitik.",k:"→ Kapitel 5"}
+];
+const dw=$("#drivers");
+drivers.forEach((d,i)=>{const b=document.createElement("button");b.className="driver";b.setAttribute("aria-pressed",i===0);b.innerHTML=`<span class="ico" aria-hidden="true">${d.i}</span><b>${d.t}</b><span>${d.s}</span>`;b.onclick=()=>showDriver(i);dw.appendChild(b)});
+function showDriver(i){$$(".driver").forEach((b,j)=>b.setAttribute("aria-pressed",i===j));const d=drivers[i];$("#driverDetail").innerHTML=`<h3>${d.i} ${d.t}</h3><p>${d.d}</p><p class="small muted">${d.k}</p>`}
+showDriver(0);
+
+/* ---------- 2 Wellen ---------- */
+const waves=[
+ {t:"Agrarkultur",d:"ab ca. 10.000 v. Chr.",dur:"mehrere Jahrtausende",w:100,arbeit:"überwiegend körperlich, naturgebunden",zeit:"nach Jahreszeiten und natürlichen Rhythmen",ort:"Hof und Familie – Arbeit und Privatleben kaum getrennt",komp:"Kooperation, Wissen von Generation zu Generation"},
+ {t:"Industriekultur",d:"ab spätem 18. Jh.",dur:"wenige Jahrhunderte",w:40,arbeit:"Fabrik, Arbeitsteilung, Standardisierung, Hierarchie",zeit:"feste Arbeitszeiten statt natürlicher Rhythmen",ort:"Arbeit und Privatleben räumlich getrennt",komp:"Effizienz, Disziplin, Bildungssysteme entstehen"},
+ {t:"Informationskultur",d:"ab ca. 1970er/80er",dur:"wenige Jahrzehnte",w:14,arbeit:"Wissensarbeit, Dienstleistung, Projekte",zeit:"flexibel – Grenzen zur Freizeit verschwimmen",ort:"orts­unabhängig, global vernetzt",komp:"lebenslanges Lernen, Eigenverantwortung"},
+ {t:"KI-Kultur?",d:"seit ca. 2022",dur:"gerade erst begonnen",w:4,arbeit:"Aufgaben werden zwischen Mensch und KI neu verteilt",zeit:"offen – wird gerade verhandelt",ort:"hybrid: Präsenz und Remote kombiniert",komp:"Urteilskraft, Kreativität, Empathie, Resilienz, AI Literacy"}
+];
+const wv=$("#waves");
+waves.forEach((w,i)=>{const b=document.createElement("button");b.className="wave";b.setAttribute("role","tab");b.innerHTML=`<span class="t">${i+1}. ${w.t}</span><span class="d">${w.d}</span>`;b.onclick=()=>showWave(i);wv.appendChild(b)});
+function showWave(i){$$(".wave").forEach((b,j)=>b.setAttribute("aria-selected",i===j));const w=waves[i];
+ $("#wavePanel").innerHTML=`<div><b>Art der Arbeit</b>${w.arbeit}</div><div><b>Arbeitszeit</b>${w.zeit}</div><div><b>Arbeitsort</b>${w.ort}</div><div><b>Wichtige Kompetenzen</b>${w.komp}</div>`;
+ $("#waveSpeed").innerHTML=`<span style="white-space:nowrap">Dauer: <b>${w.dur}</b></span><i style="width:${w.w}%"></i>`;}
+showWave(3);
+
+/* Flip cards */
+const vuca=[["V","Volatility","Volatilität","Schnelle, heftige Veränderungen – z. B. die rasante Verbreitung generativer KI seit 2022."],["U","Uncertainty","Unsicherheit","Die Zukunft ist schwer vorhersehbar – trotz vieler Daten (z. B. Corona-Pandemie)."],["C","Complexity","Komplexität","Alles ist eng vernetzt; Ursache und Wirkung sind schwer zu erkennen."],["A","Ambiguity","Mehrdeutigkeit","Informationen lassen mehrere Deutungen zu; man muss trotzdem entscheiden."]];
+const bani=[["B","Brittle","brüchig","Systeme sind anfällig für unerwartete Störungen und können plötzlich zusammenbrechen."],["A","Anxious","ängstlich","Wirtschaftliche, technische und gesellschaftliche Veränderungen erzeugen Ängste."],["N","Nonlinear","nichtlinear","Kleine Ursachen können große Folgen haben – Prognosen werden schwierig."],["I","Incomprehensible","unverständlich","Datenflut und neue Technik machen Zusammenhänge schwer begreifbar."]];
+function flips(arr,el){arr.forEach(a=>{const b=document.createElement("button");b.className="flip";b.setAttribute("aria-pressed","false");b.setAttribute("aria-label",`${a[1]} – ${a[2]}. Klicken zum Umdrehen`);b.innerHTML=`<div class="in"><div class="f"><span class="L">${a[0]}</span><small>${a[1]}</small></div><div class="b"><b>${a[2]}</b>${a[3]}</div></div>`;b.onclick=()=>b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")!=="true");el.appendChild(b)})}
+flips(vuca,$("#vuca"));flips(bani,$("#bani"));
+
+/* ---------- 3 Diverging chart (ifo) ---------- */
+const cats=[["sehr leicht","easy2"],["leicht","easy1"],["weder noch","mid"],["schwer","hard1"],["unmöglich","hard2"]];
+const ifo=[["Gesamtwirtschaft",[6.8,12.4,25.4,30.1,25.3]],["Verarbeitendes Gewerbe",[4.1,10.5,28.3,33.0,24.2]],["Dienstleistungen",[6.9,12.8,22.7,30.0,27.7]],["Handel",[12.3,16.3,28.0,23.0,20.5]],["Bauhauptgewerbe",[2.2,7.1,20.2,38.8,31.7]]];
+const colVar={easy2:"--d-easy2",easy1:"--d-easy1",mid:"--d-mid",hard1:"--d-hard1",hard2:"--d-hard2"};
+$("#divLegend").innerHTML=cats.map(c=>`<span><i style="background:var(${colVar[c[1]]})"></i>${c[0]}</span>`).join("");
+const dc=$("#divChart");
+ifo.forEach(r=>{const row=document.createElement("div");row.className="div-row";row.innerHTML=`<div class="lab">${r[0]}</div>`;const bar=document.createElement("div");bar.className="div-bar";
+ r[1].forEach((v,i)=>{const s=document.createElement("div");s.className=cats[i][1];s.style.background=`var(${colVar[cats[i][1]]})`;s.style.flex=`0 0 calc(${v}% - 2px)`;s.textContent=v>=9?fmt(v.toFixed(0)):"";bindTip(s,`<b>${r[0]}</b><br>Ersatz „${cats[i][0]}“: ${fmt(v)} %`);bar.appendChild(s)});
+ row.appendChild(bar);dc.appendChild(row)});
+$("#divTable").innerHTML=`<table><tr><th>Branche</th>${cats.map(c=>`<th>${c[0]}</th>`).join("")}</tr>${ifo.map(r=>`<tr><td>${r[0]}</td>${r[1].map(v=>`<td class="n">${fmt(v)}</td>`).join("")}</tr>`).join("")}</table>`;
+
+/* ---------- generic horizontal bars ---------- */
+function hbars(el,rows,series,max,unit){ // rows: [label,[v1,v2..]], series: [[name,cssvar]]
+  const c=$(el); c.innerHTML="";
+  rows.forEach(r=>{const d=document.createElement("div");d.className="hbar"+(series.length===1?" single":"");d.innerHTML=`<div class="lab">${r[0]}</div>`;const bs=document.createElement("div");bs.className="bars";
+   r[1].forEach((v,i)=>{const b=document.createElement("div");b.className="b";const iel=document.createElement("i");iel.style.background=`var(${series[i][1]})`;iel.dataset.w=(v/max*80)+"%";iel.style.width="0";const em=document.createElement("em");em.textContent=fmt(v)+(unit||"");b.appendChild(iel);b.appendChild(em);bindTip(iel,`<b>${r[0]}</b><br>${series[i][0]}: ${fmt(v)}${unit||""}`);bs.appendChild(b)});
+   d.appendChild(bs);c.appendChild(d)});
+  grow.observe(c);
+}
+const grow=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll("i[data-w]").forEach(i=>i.style.width=i.dataset.w);grow.unobserve(e.target)}}),{threshold:.2});
+
+function single(el,rows,name,v,max,unit){hbars(el,rows,[[name,v]],max,unit)}
+single("#gapChart",[["Deutschland",[7.4]],["EU-Durchschnitt",[5.7]],["Frankreich",[4.4]]],"Wochenstunden Unterschied (Männer mehr)","--s1",9," h");
+hbars("#wishChart",[["Männer wünschen",[35.5]],["Frauen wünschen",[29.5]],["Vollzeit heute (Ø)",[40.6]]],[["gewünschte Wochenstunden","--s1"]],42," h");
+$$("#wishChart .hbar")[1].querySelector("i").style.background="var(--s2)";
+$$("#wishChart .hbar")[2].querySelector("i").style.background="var(--d-mid)";
+single("#pilotChart",[["Arbeitszeitreduktion fortgesetzt",[73]],["bessere Arbeitgeber­attraktivität",[75]],["bessere Arbeits­bedingungen / Work-Life-Balance",[94]],["mehr Innovation & Kreativität",[67]],["weniger Krankheitstage",[38]]],"Anteil Organisationen","--s1",100," %");
+hbars("#useChart",[["Reproduktions-/Care-Arbeit",[50,37.5]],["Erholung",[37.5,37.5]],["kulturelle Selbstentwicklung",[25,12.5]],["weitere Erwerbsarbeit",[25,0]]],[["Männer","--s1"],["Frauen","--s2"]],55," %");
+const causes=[["Zu wenig Bewerber:innen auf dem Arbeitsmarkt",[91,89]],["Konditionen der Stellen nicht attraktiv",[53,65]],["Gehaltsansprüche der Bewerber zu hoch",[45,47]],["Lage/Umfang der Arbeitszeiten schrecken ab",[40,22]],["Betrieb hat zu wenig aus-/weitergebildet",[36,36]],["Tätigkeit schreckt Bewerber ab",[22,19]]];
+hbars("#causeChart",causes,[["Privatwirtschaft","--s1"],["Öffentlicher Dienst","--s2"]],100," %");
+$("#causeTable").innerHTML=`<table><tr><th>Ursache</th><th>Privatwirtschaft</th><th>Öffentl. Dienst</th></tr>${causes.map(c=>`<tr><td>${c[0]}</td><td class="n">${c[1][0]}</td><td class="n">${c[1][1]}</td></tr>`).join("")}</table>`;
+single("#dihkChart",[["steigende Arbeitskosten",[63]],["Mehrbelastung der Belegschaft",[55]],["Einschränkungen beim Angebot",[36]],["Verlust von Know-how Älterer",[23]]],"Anteil Unternehmen","--s1",70," %");
+
+/* ---------- Trust slider ---------- */
+function trustText(v){
+ if(v<30) return `<b style="color:var(--d-hard2)">Untertrust → „Disuse“</b><br>Das System wird gemieden, obwohl es gute Arbeit leisten könnte. Typisch nach „digitalen Narben“ – schlechten Erfahrungen mit gescheiterten Digitalisierungsprojekten.`;
+ if(v>70) return `<b style="color:var(--d-easy2)">Overtrust → „Misuse“</b><br>Ergebnisse werden ungeprüft übernommen – auch wenn die KI Fehler macht oder „halluziniert“. Gefährlich, wenn man rechtlich für die Arbeit einstehen muss.`;
+ return `<b style="color:var(--good)">Kalibriertes Vertrauen ✓</b><br>Man nutzt die KI, wo sie verlässlich hilft (z. B. Recherche, Entwürfe), und prüft oder verzichtet, wo ihre Grenzen liegen. Die Verantwortung bleibt beim Menschen: „… bei dem, der das Ding unterschreibt.“`;
+}
+const tr=$("#trust");tr.oninput=()=>$("#trustOut").innerHTML=trustText(+tr.value);tr.oninput();
+
+/* ---------- Haug sliders ---------- */
+const areas=[["Erwerbsarbeit","--s1"],["Sorgearbeit","--s2"],["Ehrenamt & Politik","--s3"],["Eigenzeit & Muße","--d-hard1"]];
+if(!S.haug)S.haug=[8,3,1,4];
+const hs=$("#haugSliders");
+areas.forEach((a,i)=>{const d=document.createElement("div");d.className="sl";d.innerHTML=`<label for="h${i}">${a[0]}</label><input type="range" id="h${i}" min="0" max="12" step="0.5" value="${S.haug[i]}"><output id="ho${i}">${fmt(S.haug[i])} h</output>`;hs.appendChild(d);
+ d.querySelector("input").oninput=e=>{S.haug[i]=+e.target.value;$("#ho"+i).textContent=fmt(S.haug[i])+" h";drawHaug();save()}});
+function stack(el,vals){const sum=vals.reduce((a,b)=>a+b,0)||1;$(el).innerHTML=vals.map((v,i)=>v>0?`<div style="flex:0 0 calc(${v/sum*100}% - 2px);background:var(${areas[i][1]})" title="${areas[i][0]}: ${fmt(v)} h">${v/sum>.12?areas[i][0].split(" ")[0]+" "+fmt(v)+"h":""}</div>`:"").join("")}
+function drawHaug(){const sum=S.haug.reduce((a,b)=>a+b,0);const m=$("#haugMsg");
+ m.textContent= sum===16?"✓ Genau 16 Stunden verteilt.": sum<16?`Noch ${fmt(16-sum)} h zu verteilen (Ziel: 16 h).`:`${fmt(sum-16)} h zu viel – dein Tag hat nur 16 wache Stunden.`;
+ m.style.color=sum===16?"var(--good)":"var(--warm)";stack("#haugVision",[4,4,4,4]);stack("#haugMine",S.haug)}
+drawHaug();
+
+/* ---------- Hypotheses ---------- */
+const hyp=[["yes","Hauptmotive: Personalmangel und Wettbewerbsfähigkeit (je 20 %)","4 von 6 Betrieben bekamen mehr Bewerbungen; nur der Betrieb mit kaum verkürzter Arbeitszeit schnitt schlechter ab."],["yes","Einführung meist schnell und ohne externe Hilfe","5 von 6 Betrieben stellten innerhalb weniger Monate um."],["yes","Produktivität sank nicht","4× unverändert, 1× höher, 1× niedriger (wieder der Betrieb mit nur 0,5 h weniger)."],["yes","Mehr und genauere Absprachen nötig","Vor allem Übergaben und gemeinsame Kalender wurden wichtig."],["mixed","Weniger Stress – aber nur bei echter Verkürzung","5 von 6 Beschäftigten fühlten sich entlastet. Bloßes Umverteilen auf weniger Tage konnte sogar belasten. Krankheitstage: uneinheitlich (3× besser, 3× schlechter)."],["yes","Freie Zeit oft für Care-Arbeit – häufiger von Männern","85 % der Befragten wollen nicht für mehr Gehalt zur 5-Tage-Woche zurück. Allerdings sank die Wertschätzung nach etwa einem Jahr."]];
+$("#hyp").innerHTML=hyp.map(h=>`<div class="hyp-item"><div class="mark ${h[0]}" aria-label="${h[0]==="yes"?"bestätigt":"teilweise bestätigt"}">${h[0]==="yes"?"✓":"~"}</div><div><b>${h[1]}</b><span>${h[2]}</span></div></div>`).join("");
+
+/* ---------- Skills ---------- */
+const skills=[["🧠","Analytisches Denken","bleibt laut WEF die wichtigste Kompetenz"],["💻","Technological Literacy","Technik verstehen und sinnvoll einsetzen"],["✨","Umgang mit KI","Fragen präzise stellen, Ergebnisse prüfen, Verantwortung übernehmen"],["🎨","Kreativität","neue Lösungen finden – schwer automatisierbar"],["🌿","Resilienz","mit Belastung und Unsicherheit umgehen"],["📚","Lernfähigkeit","lebenslang Neues lernen statt einmal ausgelernt"],["🤝","Soziale Kompetenz & Empathie","Zusammenarbeit, Kommunikation, Führung"],["🧭","Urteilskraft & Ethik","Entscheidungen begründen, Fairness, Datenschutz"]];
+$("#skillCards").innerHTML=skills.map(s=>`<div class="card"><div style="font-size:1.5rem" aria-hidden="true">${s[0]}</div><b>${s[1]}</b><p class="small muted" style="margin:.3em 0 0">${s[2]}</p></div>`).join("");
+const sc=$("#selfCheck");
+skills.forEach((s,i)=>{const v=S.self[i]||3;const d=document.createElement("div");d.className="sl";d.innerHTML=`<label for="sk${i}">${s[1]}</label><input type="range" id="sk${i}" min="1" max="5" value="${v}"><output id="so${i}">${v}</output>`;sc.appendChild(d);
+ d.querySelector("input").oninput=e=>{S.self[i]=+e.target.value;$("#so"+i).textContent=e.target.value;selfMsg();save()}});
+function selfMsg(){const vals=skills.map((s,i)=>S.self[i]||3);const min=Math.min(...vals);const weak=skills.filter((s,i)=>vals[i]===min).map(s=>s[1]);$("#selfMsg").innerHTML=`Dein Entwicklungsfeld: <b>${weak.join(", ")}</b>. Überlege, wie du das in Schule, Praktikum oder Freizeit üben kannst.`}
+selfMsg();
+
+/* ---------- A Quiz ---------- */
+const quiz=[
+ {q:"Wie lange arbeiten Vollzeitbeschäftigte in Deutschland durchschnittlich pro Woche?",o:["35,0 Stunden","37,1 Stunden","40,6 Stunden","42,0 Stunden"],a:2,e:"40,6 Stunden – das entspricht dem EU-Durchschnitt. 42 Stunden ist eine aktuelle Forderung von Arbeitgeberseite."},
+ {q:"Warum liegt die durchschnittliche Arbeitszeit ALLER Erwerbstätigen in Deutschland nur bei 34,8 Stunden?",o:["Weil Deutsche weniger fleißig sind","Wegen der hohen Teilzeitquote (29 %), vor allem bei Frauen (49 %)","Wegen der vielen Feiertage","Weil die 4-Tage-Woche schon Standard ist"],a:1,e:"Der niedrige Durchschnitt entsteht durch die hohe Teilzeitquote – oft, weil Frauen den Großteil der Sorgearbeit übernehmen."},
+ {q:"Was unterscheidet generative KI von früheren Automatisierungswellen?",o:["Sie ersetzt vor allem körperliche Arbeit","Sie greift erstmals in kognitive Wissensarbeit ein","Sie betrifft nur die Industrie","Sie funktioniert ohne Daten"],a:1,e:"Maschinen ersetzten früher vor allem körperliche Arbeit; generative KI kann Texte schreiben, analysieren und programmieren."},
+ {q:"Was zeigt die Forschung zu den Folgen von KI für Berufe?",o:["Ganze Berufe verschwinden in kurzer Zeit","KI hat kaum Auswirkungen","Einzelne Aufgaben innerhalb von Berufen werden neu verteilt","Nur Akademiker sind betroffen"],a:2,e:"Berufe bestehen aus vielen Aufgaben. Technik verändert meist einzelne Aufgaben – es kommt zur Neuverteilung zwischen Mensch und Maschine."},
+ {q:"In der Fallstudie zur 4-Tage-Woche: Wann sank der Stress der Beschäftigten?",o:["Bei jeder Umstellung auf weniger Tage","Nur bei echter Verkürzung der Stundenzahl","Nie","Nur bei Lohnerhöhung"],a:1,e:"Eine reine Umverteilung der gleichen Stunden auf weniger Tage brachte keine Entlastung und konnte sogar belasten."},
+ {q:"Wie veränderte sich die Produktivität in den sechs Betrieben?",o:["Sie sank überall deutlich","Sie blieb überwiegend gleich (4×), stieg einmal","Sie verdoppelte sich","Sie wurde nicht untersucht"],a:1,e:"Vier Betriebe bemerkten keine Veränderung, einer eine Steigerung, einer einen Rückgang – den mit kaum verkürzter Arbeitszeit."},
+ {q:"Wofür steht das „A“ in BANI?",o:["Ambiguous – mehrdeutig","Agile – beweglich","Anxious – ängstlich","Automated – automatisiert"],a:2,e:"BANI = brittle, anxious, nonlinear, incomprehensible. Es betont die psychologische Wirkung von Unsicherheit (A in VUCA = Ambiguity)."},
+ {q:"Was ist das „Fachkräfte-Paradox“?",o:["Es gibt zu viele Fachkräfte","Trotz Fachkräftemangel steigt die Arbeitslosigkeit von Akademiker:innen (2,9 → 3,3 %)","Fachkräfte verdienen weniger als Ungelernte","Unternehmen nutzen keine KI"],a:1,e:"Mangel und schwieriger Berufseinstieg bestehen gleichzeitig – vor allem wegen Krisen, KI und Passungsproblemen."},
+ {q:"Welches Thema nannten Verwaltungsbeschäftigte beim Einsatz eines KI-Assistenten am häufigsten?",o:["Kosten","Persönliche Kontrolle über den Arbeitsprozess","Design der Oberfläche","Geschwindigkeit"],a:1,e:"Kontrolle (über 143 Codierungen): Die Verantwortung muss beim Menschen bleiben – gewünscht wurde z. B. eine „Warum-Taste“."},
+ {q:"Was beeinflusste im Robo-Advisor-Experiment die Entscheidung am stärksten?",o:["Ob ein Mensch oder Algorithmus empfahl","Eine vorausgefüllte Voreinstellung (Default)","Das Alter der Teilnehmenden","Die Farbe der Buttons"],a:1,e:"Die Voreinstellung verschob die Aufteilung um rund 12 Prozentpunkte – die Quelle der Empfehlung machte keinen messbaren Unterschied."},
+ {q:"Womit vergleichen Pundt & Brüning die Bedeutung von Digital Literacy?",o:["Mit einem Führerschein","Mit Lesen, Schreiben und Rechnen","Mit Fremdsprachen","Mit Sport"],a:1,e:"Wie die Kulturtechniken der Industriegesellschaft wird Digital Literacy zur Voraussetzung für Teilhabe."},
+ {q:"Was schlägt Frigga Haugs „Vier-in-einem-Perspektive“ vor?",o:["Vier Arbeitstage pro Woche","Je etwa 4 Stunden täglich für Erwerbsarbeit, Sorgearbeit, Ehrenamt/Politik und Eigenzeit","Vier Jobs gleichzeitig","Vier Wochen Urlaub"],a:1,e:"Eine radikale Vision: Alle Formen von Arbeit – nicht nur Erwerbsarbeit – sollen gerecht verteilt werden („Zeitwohlstand“)."}
+];
+const qz=$("#quiz");
+quiz.forEach((q,i)=>{const d=document.createElement("div");d.className="q";d.innerHTML=`<p class="qt">${i+1}. ${q.q}</p><div class="opts">${q.o.map((o,j)=>`<button data-j="${j}">${o}</button>`).join("")}</div><div class="exp">${q.e}</div>`;qz.appendChild(d);
+ d.querySelectorAll("button").forEach(b=>b.onclick=()=>{S.quiz[i]=+b.dataset.j;markQ(i,d);save()});
+ if(S.quiz[i]!==undefined)markQ(i,d)});
+function markQ(i,d){const sel=S.quiz[i];d.classList.add("done");d.querySelectorAll("button").forEach((b,j)=>{b.disabled=true;if(j===quiz[i].a)b.classList.add("correct");else if(j===sel)b.classList.add("wrong")});
+ const ex=d.querySelector(".exp");ex.innerHTML=(sel===quiz[i].a?"<b style='color:var(--good)'>Richtig!</b> ":"<b style='color:var(--bad)'>Nicht ganz.</b> ")+quiz[i].e;score()}
+function score(){const n=Object.keys(S.quiz).length,r=Object.entries(S.quiz).filter(([i,v])=>quiz[i].a===v).length;$("#score").textContent=`${r} / ${n} richtig · ${quiz.length-n} offen`}
+score();
+
+/* ---------- B Sort ---------- */
+const opts=["Mensch","Team","KI"];
+const sorts=[
+ ["Eine Stellenanzeige formulieren","KI","Laut Pundt & Brüning können KI-Systeme Stellenanzeigen erstellen – ein Mensch sollte sie natürlich noch prüfen."],
+ ["Unter Bewerber:innen die endgültige Auswahl treffen","Mensch","Die finale Auswahl erfordert menschliches Urteilsvermögen, soziale Kompetenz und ethische Abwägung."],
+ ["Gesetze und Fachinformationen recherchieren","Team","KI hilft beim Recherchieren – die Befragten verlangen aber Quellenangaben und Aktualität, also prüft der Mensch."],
+ ["Bürger:innen in einer schwierigen Lage persönlich beraten","Mensch","Direkter Bürgerkontakt und Fingerspitzengefühl gelten in der Verwaltungsstudie als klar menschliche Domäne."],
+ ["Einen Standardbrief oder Textentwurf schreiben","KI","Dokumentenerstellung und Schriftverkehr wurden als besonders geeignete KI-Aufgaben eingeschätzt."],
+ ["Einen Bescheid unterschreiben und rechtlich verantworten","Mensch","„Die Verantwortung bleibt bei dem, der das Ding unterschreibt.“ Verantwortung lässt sich nicht an Technik abgeben."],
+ ["Große Datenmengen nach Mustern durchsuchen","KI","Datenintensive, standardisierbare Aufgaben sind die Stärke von KI-Systemen."],
+ ["KI-Vorschläge mit Berufserfahrung kritisch bewerten","Team","Erfahrungswissen hilft, algorithmische Vorschläge einzuordnen – Mensch und KI ergänzen sich."]
+];
+const so=$("#sort");
+sorts.forEach((s,i)=>{const d=document.createElement("div");d.className="sort-item";d.innerHTML=`<span>${s[0]}</span><div class="seg" role="group" aria-label="${esc(s[0])}">${opts.map(o=>`<button aria-pressed="false" data-o="${o}">${o==="Team"?"Mensch + KI":o}</button>`).join("")}</div><div class="fb"></div>`;so.appendChild(d);
+ d.querySelectorAll("button").forEach(b=>b.onclick=()=>{S.sort[i]=b.dataset.o;markS(i,d);save()});
+ if(S.sort[i])markS(i,d)});
+function markS(i,d){const v=S.sort[i];d.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.o===v));const fb=d.querySelector(".fb");const ok=v===sorts[i][1];
+ fb.className="fb show "+(ok?"ok":"no");fb.innerHTML=(ok?"<b>Passt zur Forschung.</b> ":`<b>Die Studien legen eher „${sorts[i][1]==="Team"?"Mensch + KI":sorts[i][1]}“ nahe.</b> `)+sorts[i][2]}
+
+/* ---------- C Likert ---------- */
+const scale=["stimme gar nicht zu","eher nicht","unentschieden","eher ja","stimme voll zu"];
+const liks=[
+ ["Bis 2040 wird KI die meisten Berufe komplett ersetzen.","Die Forschung erwartet eher eine <b>Neuverteilung von Aufgaben</b>. Laut ifo halten in jeder Branche mindestens die Hälfte der KI-nutzenden Unternehmen einen Ersatz von Akademikern für schwer oder unmöglich – allerdings beruht das auf dem heutigen Stand der Technik."],
+ ["Die 4-Tage-Woche wird in Zukunft der Normalfall sein.","73 % der Firmen in der deutschen Pilotstudie behielten die Verkürzung bei – oft aber in flexibleren Modellen. Gleichzeitig fordern Arbeitgeberverbände längere Arbeitszeiten. Die Entwicklung ist politisch offen."],
+ ["Ein Studienabschluss garantiert mir einen sicheren Job.","Laut Harms ist ein Studium weiterhin ein Vorteil, aber <b>kein Garant</b> für einen schnellen Einstieg. Gefragt sind zusätzlich Praxiserfahrung und digitale Kompetenzen."],
+ ["Ich würde einer KI-Kollegin vertrauen, wenn ich die Kontrolle behalte.","Genau das zeigt die Verwaltungsstudie: Vertrauen entsteht durch <b>Kontrolle, Transparenz („Warum-Taste“) und klare Verantwortung</b> – nicht durch technische Eleganz."],
+ ["Homeoffice wird auf Dauer die normale Arbeitsform.","Homeoffice ist heute die verbreitetste New-Work-Praxis. Die Forschung sieht aber weder reine Präsenz noch reines Homeoffice als überlegen – spontane Begegnungen fördern Kreativität. Wahrscheinlich: <b>hybride Modelle</b>."],
+ ["Kürzere Arbeitszeiten würden Frauen und Männer gleichberechtigter machen.","Die Fallstudie liefert erste Hinweise: Männer nutzten gewonnene Zeit häufiger für Care-Arbeit. Die Autorin betont aber selbst, dass weitere Studien nötig sind. Skeptiker befürchten, Männer gewännen eher Freizeit."],
+ ["Ich mache mir Sorgen um meine berufliche Zukunft.","Das BANI-Modell beschreibt genau diese Ängste („anxious“) als typische Reaktion auf eine unübersichtliche Welt. Die Forschung empfiehlt, <b>Resilienz und Lernfähigkeit</b> zu stärken – Unsicherheit als Chancenraum zu begreifen."]
+];
+const lk=$("#likert");
+liks.forEach((l,i)=>{const d=document.createElement("div");d.className="lik";d.innerHTML=`<p class="st">These ${i+1}: ${l[0]}</p><div class="scale" role="group" aria-label="Zustimmung">${scale.map((s,j)=>`<button aria-pressed="false" data-j="${j}">${s}</button>`).join("")}</div><div class="research"><b>Was die Forschung sagt:</b> ${l[1]}</div>`;lk.appendChild(d);
+ d.querySelectorAll("button").forEach(b=>b.onclick=()=>{S.lik[i]=+b.dataset.j;markL(i,d);save()});
+ if(S.lik[i]!==undefined)markL(i,d)});
+function markL(i,d){d.querySelectorAll("button").forEach((b,j)=>b.setAttribute("aria-pressed",j===S.lik[i]));d.querySelector(".research").classList.add("show")}
+
+/* ---------- D Open ---------- */
+const openQ=[
+ ["Wie wird dein Arbeitsalltag in 15 Jahren aussehen?","Denke an Arbeitszeit, Arbeitsort, KI und Kolleg:innen."],
+ ["Welche Aufgaben in deinem Wunschberuf könnte KI übernehmen – und welche nicht?","Begründe mit der Unterscheidung „standardisierbar“ vs. „menschliche Urteilskraft“."],
+ ["Längere oder kürzere Arbeitszeiten? Nimm Stellung.","Nenne je ein Argument beider Seiten und entscheide dich begründet."],
+ ["Was willst du ab jetzt tun, um für die Arbeitswelt der Zukunft gerüstet zu sein?","Beziehe dich auf die Future Skills und deinen Selbstcheck."]
+];
+const op=$("#open");
+openQ.forEach((q,i)=>{const w=document.createElement("div");w.innerHTML=`<label class="ql" for="o${i}">${i+1}. ${q[0]}<small>${q[1]}</small></label><textarea id="o${i}"></textarea><div class="small muted" id="oc${i}"></div>`;op.appendChild(w);
+ const t=w.querySelector("textarea");t.value=S.open[i]||"";const cnt=()=>{const n=(t.value.trim().match(/\S+/g)||[]).length;$("#oc"+i).textContent=n+" Wörter"+(n<40?" · Tipp: mindestens 40 Wörter":" ✓")};cnt();
+ t.oninput=()=>{S.open[i]=t.value;cnt();save()}});
+
+/* ---------- Tabs ---------- */
+$$("#taskTabs button").forEach(b=>b.onclick=()=>{$$("#taskTabs button").forEach(x=>x.setAttribute("aria-selected",x===b));$$(".tabpanel").forEach(p=>p.hidden=p.id!==b.dataset.tab);if(b.dataset.tab==="tE")updateSummary()});
+
+/* ---------- Summary / Abgabe ---------- */
+$("#nm").value=S.name||"";$("#kl").value=S.klasse||"";
+$("#nm").oninput=e=>{S.name=e.target.value;save()};$("#kl").oninput=e=>{S.klasse=e.target.value;save()};
+function buildText(){
+ const L=[];const line="—".repeat(48);
+ L.push("ABGABE: ARBEITSWELT IM WANDEL");L.push(line);
+ L.push("Name: "+(S.name||"—"));L.push("Klasse/Kurs: "+(S.klasse||"—"));L.push("Datum: "+new Date().toLocaleDateString("de-DE"));L.push("");
+ const qn=Object.keys(S.quiz).length,qr=Object.entries(S.quiz).filter(([i,v])=>quiz[i].a===v).length;
+ L.push(`A · QUIZ: ${qr} von ${quiz.length} richtig (${qn} beantwortet)`);
+ quiz.forEach((q,i)=>{if(S.quiz[i]!==undefined)L.push(`  ${i+1}. ${S.quiz[i]===q.a?"✓":"✗"} ${q.o[S.quiz[i]]}`)});L.push("");
+ const sn=Object.keys(S.sort).length,sr=Object.entries(S.sort).filter(([i,v])=>sorts[i][1]===v).length;
+ L.push(`B · MENSCH ODER KI: ${sr} von ${sorts.length} passend zur Forschung (${sn} zugeordnet)`);
+ sorts.forEach((s,i)=>{if(S.sort[i])L.push(`  - ${s[0]}: ${S.sort[i]==="Team"?"Mensch + KI":S.sort[i]}`)});L.push("");
+ L.push("C · EINSCHÄTZUNG DER ZUKUNFT");
+ liks.forEach((l,i)=>L.push(`  - ${l[0]}\n    → ${S.lik[i]!==undefined?scale[S.lik[i]]:"(nicht beantwortet)"}`));L.push("");
+ L.push("D · ZUKUNFTSBRIEF");
+ openQ.forEach((q,i)=>{L.push(`  ${i+1}. ${q[0]}`);L.push("     "+((S.open[i]||"").trim()||"(keine Antwort)").replace(/\n/g,"\n     "));L.push("")});
+ L.push("SELBSTCHECK FUTURE SKILLS (1–5)");skills.forEach((s,i)=>L.push(`  - ${s[1]}: ${S.self[i]||3}`));L.push("");
+ L.push("MEIN WUNSCH-TAG (Vier-in-einem)");areas.forEach((a,i)=>L.push(`  - ${a[0]}: ${fmt(S.haug[i])} h`));L.push("");
+ L.push(line);L.push("Grundlage: Kuron/Schäfer/Varmaz (Hrsg.) 2026, Hochschule Bremen, Bd. 83");
+ return L.join("\n");
+}
+function updateSummary(){const el=$("#summary");if(!el)return;el.textContent=buildText();
+ const done=[Object.keys(S.quiz).length===quiz.length,Object.keys(S.sort).length===sorts.length,Object.keys(S.lik).length===liks.length,openQ.every((q,i)=>(S.open[i]||"").trim().length>0)];
+ const names=["Quiz","Zuordnung","Einschätzung","Zukunftsbrief"];
+ $("#completeness").innerHTML="Stand: "+names.map((n,i)=>`${done[i]?"✅":"⬜"} ${n}`).join(" · ")+(done.every(Boolean)?" — <b>alles vollständig!</b>":"");}
+$("#dl").onclick=()=>{const blob=new Blob([buildText()],{type:"text/plain;charset=utf-8"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="Abgabe_Arbeitswelt_"+((S.name||"Name").replace(/[^\wäöüÄÖÜß-]+/g,"_"))+".txt";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)};
+$("#pr").onclick=()=>{updateSummary();window.print()};
+$("#cp").onclick=async()=>{try{await navigator.clipboard.writeText(buildText());$("#cpMsg").textContent="✓ In die Zwischenablage kopiert."}catch(e){$("#cpMsg").textContent="Kopieren nicht möglich – bitte den Text unten markieren."}};
+$("#rs").onclick=()=>{if(!$("#rs").dataset.confirm){$("#rs").dataset.confirm=1;$("#rs").textContent="Wirklich alles löschen? Nochmal klicken";setTimeout(()=>{delete $("#rs").dataset.confirm;$("#rs").textContent="Alles zurücksetzen"},4000);return}
+ try{localStorage.removeItem(KEY)}catch(e){} location.reload()};
+updateSummary();
+
+/* ---------- Nav highlighting, progress, reveal ---------- */
+const links=$$(".navlinks a");const secs=links.map(a=>$(a.getAttribute("href")));
+function onScroll(){const y=scrollY+120;let cur=0;secs.forEach((s,i)=>{if(s.offsetTop<=y)cur=i});links.forEach((a,i)=>a.classList.toggle("active",i===cur&&scrollY>200));
+ const h=document.documentElement.scrollHeight-innerHeight;$("#progress").style.width=(h>0?scrollY/h*100:0)+"%"}
+addEventListener("scroll",onScroll,{passive:true});onScroll();
+const rv=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");rv.unobserve(e.target)}}),{threshold:.08});
+$$(".reveal").forEach(el=>rv.observe(el));
+})();
+</script>
+</body>
+</html>
